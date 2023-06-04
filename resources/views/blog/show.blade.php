@@ -46,35 +46,13 @@
                                 <h3 class="text-uppercase font-weight-bold mb-3">{{ $post->title }}</h3>
                                 <img class="img-fluid w-50 float-left mr-4 mb-2" src="/storage/{{ $post->image }}">
                                 <p>{{ $post->content }}</p>
-                                {{-- <p>Diam dolor est labore duo invidunt ipsum clita et, sed et lorem voluptua tempor
-                                    invidunt at est sanctus sanctus. Clita dolores sit kasd diam takimata justo diam
-                                    lorem sed. Magna amet sed rebum eos. Clita no magna no dolor erat diam tempor
-                                    rebum consetetur, sanctus labore sed nonumy diam lorem amet eirmod. No at tempor
-                                    sea diam kasd, takimata ea nonumy elitr sadipscing gubergren erat. Gubergren at
-                                    lorem invidunt sadipscing rebum sit amet ut ut, voluptua diam dolores at
-                                    sadipscing stet. Clita dolor amet dolor ipsum vero ea ea eos. Invidunt sed diam
-                                    dolores takimata dolor dolore dolore sit. Sit ipsum erat amet lorem et, magna
-                                    sea at sed et eos. Accusam eirmod kasd lorem clita sanctus ut consetetur et. Et
-                                    duo tempor sea kasd clita ipsum et.</p> --}}
-
-                                
                                 <h5 class="text-uppercase font-weight-bold mb-3">{{ $post->title }}</h5>
                                 <img class="img-fluid w-50 float-right mr-4 mb-2" src="/storage/{{ $post->image }}">
                                 <p>{{ $post->content }}</p>
-                                {{-- <p>Diam dolor est labore duo invidunt ipsum clita et, sed et lorem voluptua tempor
-                                    invidunt at est sanctus sanctus. Clita dolores sit kasd diam takimata justo diam
-                                    lorem sed. Magna amet sed rebum eos. Clita no magna no dolor erat diam tempor
-                                    rebum consetetur, sanctus labore sed nonumy diam lorem amet eirmod. No at tempor
-                                    sea diam kasd, takimata ea nonumy elitr sadipscing gubergren erat. Gubergren at
-                                    lorem invidunt sadipscing rebum sit amet ut ut, voluptua diam dolores at
-                                    sadipscing stet. Clita dolor amet dolor ipsum vero ea ea eos. Invidunt sed diam
-                                    dolores takimata dolor dolore dolore sit. Sit ipsum erat amet lorem et, magna
-                                    sea at sed et eos. Accusam eirmod kasd lorem clita sanctus ut consetetur et. Et
-                                    duo tempor sea kasd clita ipsum et.</p> --}}
                             </div>
                             <div class="d-flex justify-content-between bg-white border border-top-0 p-4">
                                 <div class="d-flex align-items-center">
-                                    <img class="rounded-circle mr-2" src="/img/user.jpg" width="25" height="25" alt="">
+                                    <img class="rounded-circle mr-2" src="{{$post->user->getUserImage()}}" width="25" height="25" alt="">
                                     <span>{{ $post->user->name }}</span>
                                 </div>
                             </div>
@@ -89,11 +67,11 @@
                             <div class="bg-white border border-top-0 p-4">
                                 @foreach ($post->comments as $comment)
                                     <div class="media mb-4">
-                                        <img src="/storage/{{ $comment->client->image }}" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
+                                        <img src="{{ $comment->client->getClientImage() }}" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
                                         <div class="media-body">
                                             <h6><a class="text-secondary font-weight-bold" href="">{{ $comment->client->fullname }}</a> <small><i>{{ $comment->created_at->format('d-m-Y') }}</i></small></h6>
                                             <p>{{ $comment->content }}</p>
-                                            <button class="btn btn-sm btn-outline-secondary">Reply</button>
+                                            {{-- <button class="btn btn-sm btn-outline-secondary">Reply</button> --}}
                                         </div>
                                     </div>
                                 @endforeach

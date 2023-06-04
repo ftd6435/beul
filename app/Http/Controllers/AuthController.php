@@ -14,14 +14,6 @@ class AuthController extends Controller
 {
     public function login()
     {
-        // User::create([
-        //     'name' => 'Pathé PK',
-        //     'username' => 'pathepk4',
-        //     'email' => 'pk4diallo@gmail.com' ,
-        //     'role' => 'admin',
-        //     'password' => Hash::make('pathepk'),
-        // ]);
-
         return view('auth.login');
     }
 
@@ -36,8 +28,8 @@ class AuthController extends Controller
         }
 
         return to_route('auth.login')->withErrors([
-            'username' => 'Identifiant incorrect'
-        ])->onlyInput('username');
+            'email' => 'Identifiant incorrect'
+        ])->onlyInput('email');
     }
 
     public function signup()

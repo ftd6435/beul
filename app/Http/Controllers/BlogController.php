@@ -22,6 +22,7 @@ class BlogController extends Controller
      */
     public function index()
     {
+        // dd(random_int(1,5));
         $posts = Post::orderBy('created_at', 'desc')->get();
         $tags = Tag::select('id', 'name')->get();
         $categories = Category::select('id', 'name')->get();

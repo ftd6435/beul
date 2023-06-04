@@ -18,7 +18,7 @@
             
         </div>
         <div class="row">   
-            @include('shared.input', ['class' => 'col', 'label' => 'Email', 'name' => 'email', 'placeholder' => 'example5@gmail.com', 'value' => $user->email])
+            @include('shared.input', ['class' => 'col', 'label' => 'Email', 'name' => 'email', 'placeholder' => 'example@gmail.com', 'value' => $user->email])
             @include('shared.input', ['class' => 'col', 'label' => 'Role', 'name' => 'role', 'placeholder' => 'User role', 'value' => $user->role])
         </div>
 

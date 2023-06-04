@@ -9,7 +9,7 @@
 <form action="" method="POST" class="vstack gap-4">
     @csrf 
 
-    @include('shared.input', ['label' => 'Username', 'name' => 'username', 'placeholder' => 'Username'])
+    @include('shared.input', ['label' => 'Email', 'name' => 'email', 'placeholder' => 'example@gmail.com'])
     @include('shared.input', ['label' => 'Password', 'name' => 'password', 'type' => 'password'])
 
     <div class="mt-3">
