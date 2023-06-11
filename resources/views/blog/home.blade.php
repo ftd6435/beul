@@ -11,7 +11,7 @@
                         @foreach ($posts as $key => $post)
                             @if ($key < 3)
                                 <div class="position-relative overflow-hidden" style="height: 500px;">
-                                    <img class="img-fluid h-100" src="/storage/{{$post->image}}" style="object-fit: cover;">
+                                    <img class="img-fluid h-100" src="{{$post->getPostImage()}}" style="object-fit: cover;">
                                     <div class="overlay">
                                         <div class="mb-2">
                                             <a class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2"
@@ -83,7 +83,7 @@
                 <div class="owl-carousel news-carousel carousel-item-4 position-relative">
                     @foreach ($posts as $post)
                         <div class="position-relative overflow-hidden" style="height: 300px;">
-                            <img class="img-fluid h-100" src="/storage/{{$post->image}}" style="object-fit: cover;">
+                            <img class="img-fluid h-100" src="{{$post->getPostImage()}}" style="object-fit: cover;">
                             <div class="overlay">
                                 <div class="mb-2">
                                     <a class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2"

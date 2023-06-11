@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    @vite(['resources/js/app.js',])
 
     <title>@yield('title') | Administration</title>
 
@@ -30,7 +32,7 @@
                         <a href="{{ route('blog.home') }}" @class(['nav-link', 'active' => str_contains($routeName, 'blog')])>Home</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('admin.post.index') }}" @class(['nav-link', 'active' => str_contains($routeName, 'post')])>Articles</a>
+                        <a href="{{ route('admin.dashboard') }}" @class(['nav-link', 'active' => str_contains($routeName, 'dashboard')])>Articles</a>
                     </li> 
                     <li class="nav-item">
                         <a href="{{ route('admin.category.index') }}" @class(['nav-link', 'active' => str_contains($routeName, 'category')])>Catégories</a>
@@ -47,20 +49,20 @@
                                 <span class="nav-link">{{ Auth::user()->username }}</span>
                             </li>
                             <li class="nav-item">
-                                <form action="{{ route('auth.logout') }}" method="POST">
+                                <form action="{{ route('logout') }}" method="POST">
                                     @csrf 
-                                    @method('DELETE')
+                                    {{-- @method('DELETE') --}}
                                     <button class="btn btn-danger">Log Out</button>
                                 </form>
                             </li>
                         @endauth
                         @guest
                             <li class="nav-item mx-2">
-                                <a href="{{ route('auth.login') }}" class="btn btn-success">Log In</a>
+                                <a href="{{ route('login') }}" class="btn btn-success">Log In</a>
                             </li>
 
                             <li class="nav-item mx-2">
-                                <a href="{{ route('auth.signup') }}" class="btn btn-secondary">Sign Up</a>
+                                <a href="{{ route('register') }}" class="btn btn-secondary">Sign Up</a>
                             </li>
                         @endguest
                     </ul>

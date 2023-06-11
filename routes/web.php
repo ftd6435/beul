@@ -3,10 +3,9 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\TagController;
-use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ContactMailController;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,10 +18,6 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 
 $idRegex = '[0-9]+';
 $slugRegex = '[0-9a-z\-]+';
@@ -51,16 +46,28 @@ Route::get('/blog/category/{id}/{category}', [BlogController::class, 'categorySi
 ]);
 
 
-Route::get('/auth/login', [AuthController::class, 'login'])->name('auth.login');
-Route::post('/auth/login', [AuthController::class, 'doLogin']);
-Route::delete('/auth/logout', [AuthController::class, 'logout'])->name('auth.logout');
-Route::get('/auth/signup', [AuthController::class, 'signup'])->name('auth.signup');
-Route::post('/auth/signup', [AuthController::class, 'store'])->name('auth.store');
+// Route::get('/auth/login', [AuthController::class, 'login'])->name('auth.login');
+// Route::post('/auth/login', [AuthController::class, 'doLogin']);
+// Route::delete('/auth/logout', [AuthController::class, 'logout'])->name('auth.logout');
+// Route::get('/auth/signup', [AuthController::class, 'signup'])->name('auth.signup');
+// Route::post('/auth/signup', [AuthController::class, 'store'])->name('auth.store');
 
 Route::post('/contact/email', [ContactMailController::class, 'index'])->name('contact.email');
 
+Route::get('/dashboard', [AdminController::class, 'index'])->middleware(['auth', 'verified'])->name('admin.dashboard');
+
 Route::prefix('/admin')->name('admin.')->middleware('auth')->group(function(){
-    Route::resource('/post', AdminController::class)->except('show');
+    Route::resource('/post', AdminController::class)->except(['show', 'index']);
     Route::resource('/category', CategoryController::class)->except('show');
     Route::resource('/tag', TagController::class)->except('show');
 });
+
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__.'/auth.php';
+// 

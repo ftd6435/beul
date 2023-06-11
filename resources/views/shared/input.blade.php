@@ -21,7 +21,7 @@
 @else
     <div @class(['form-group', $class])>
         <label for="{{ $name }}" class="form-label">{{ $label }}</label>
-        <input type="{{ $type }}" name="{{ $name }}" id="{{ $name }}" placeholder="{{ $placeholder }}" class="form-control @error($name) is-invalid @enderror" value="{{ old($name, $value) }}">
+        <input type="{{ $type }}" name="{{ $name }}" id="{{ $name }}" placeholder="{{ $placeholder }}" class="form-control fs-3 @error($name) is-invalid @enderror" value="{{ old($name, $value) }}">
 
         @error($name)
             <div class="invalid-feedback">

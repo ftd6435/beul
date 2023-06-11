@@ -24,7 +24,8 @@
     <link href="/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="/css/style.css" rel="stylesheet">
+    @vite(['resources/css/style.css','resources/js/app.js','resources/js/main.js'])
+
 </head>
 
 <body>
@@ -46,11 +47,18 @@
                             <a class="nav-link text-body small" href="#">Advertise</a>
                         </li>
                         <li class="nav-item border-right border-secondary">
-                            <a class="nav-link text-body small" href="#">Contact</a>
+                            <a class="nav-link text-body small" href="{{ route('blog.contact') }}">Contact</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-body small" href="#">Login</a>
-                        </li>
+                        @auth
+                            <li class="nav-item border-right border-secondary">
+                                <a href="{{ route('admin.dashboard') }}" class="nav-link text-body small">Dashboard</a>
+                            </li>
+                        @endauth
+                        @guest
+                            <li class="nav-item border-right border-secondary">
+                                <a class="nav-link text-body small" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">Login</a>
+                            </li>
+                        @endguest
                     </ul>
                 </nav>
             </div>
@@ -92,7 +100,6 @@
     </div>
     <!-- Topbar End -->
 
-
     <!-- Navbar Start -->
     <div class="container-fluid p-0">
         <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-2 py-lg-0 px-lg-5">
@@ -132,6 +139,10 @@
     <div class="container mt-3">
         @include('shared.flash')
     </div>
+
+    @include('shared.modal')
+    @include('shared.forgot-password-modal')
+    @include('shared.register-modal')
 
     @yield('content')
 
@@ -225,12 +236,9 @@
 
 <!-- JavaScript Libraries -->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
 <script src="/lib/easing/easing.min.js"></script>
 <script src="/lib/owlcarousel/owl.carousel.min.js"></script>
 
-<!-- Template Javascript -->
-<script src="/js/main.js"></script>
 </body>
 
 </html>
