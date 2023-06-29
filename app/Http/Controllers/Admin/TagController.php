@@ -9,9 +9,11 @@ use Illuminate\Http\Request;
 
 class TagController extends Controller
 {
-    public function index()
-    {
-        $tags = Tag::all();
+    public function index(Request $request)
+    {  
+        $tags = Tag::when($request->is('admin/tag/archive'), function($query){
+            $query->onlyTrashed();
+        })->orderBy('created_at', 'desc')->get();
 
         return view('admin.tags.tag', ['tags' => $tags]);
     }
@@ -22,9 +24,10 @@ class TagController extends Controller
         return view('admin.tags.forms', ['tag' => $tag]);
     }
 
-    public function store(TagFormRequest $request, Tag $tag)
+    public function store(TagFormRequest $request)
     {
-        $tag = Tag::create($request->validated());
+        Tag::create($request->validated());
+
         return redirect()->route('admin.tag.index')->with('success', 'Un tag à été ajouté avec succès');
     }
 
@@ -43,5 +46,19 @@ class TagController extends Controller
     {
         $tag->delete();
         return redirect()->route('admin.tag.index')->with('success', 'Le tag à été supprimer avec succès');
+    }
+
+    public function restore($id)
+    {
+        $tag = Tag::onlyTrashed()->where('id', $id);
+        $tag->restore();
+        return redirect()->route('admin.tag.index')->with('success', 'Le tag à été restoré avec succès');
+    }
+
+    public function forceDelete($id)
+    {
+        $tag = Tag::onlyTrashed()->where('id', $id);
+        $tag->forceDelete();
+        return redirect()->route('admin.tag.index')->with('success', 'Le tag à été supprimer definitivement avec succès');
     }
 }

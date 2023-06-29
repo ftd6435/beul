@@ -32,16 +32,21 @@
 
     @php
         $routeName = request()->route()->getName();   
+        $date = now()->locale('fr_FR');
+        $dayName = Str::ucfirst($date->dayName);
+        $monthName = Str::ucfirst($date->monthName);
+        $day = $date->format('d');
+        $year =  $date->format('Y');
     @endphp
-
+    {{-- d-none d-lg-block --}}
       <!-- Topbar Start -->
-      <div class="container-fluid d-none d-lg-block">
+      <div class="container-fluid">
         <div class="row align-items-center bg-dark px-lg-5">
-            <div class="col-lg-9">
+            <div class="col-lg-9 d-none d-lg-block">
                 <nav class="navbar navbar-expand-sm bg-dark p-0">
                     <ul class="navbar-nav ml-n2">
                         <li class="nav-item border-right border-secondary">
-                            <a class="nav-link text-body small" href="#">Monday, January 1, 2045</a>
+                            <a class="nav-link text-body small" href="#">{{ $dayName . ', ' . $day . ' ' . $monthName . ' ' . $year }}</a>
                         </li>
                         <li class="nav-item border-right border-secondary">
                             <a class="nav-link text-body small" href="#">Advertise</a>
@@ -50,13 +55,26 @@
                             <a class="nav-link text-body small" href="{{ route('blog.contact') }}">Contact</a>
                         </li>
                         @auth
-                            <li class="nav-item border-right border-secondary">
-                                <a href="{{ route('admin.dashboard') }}" class="nav-link text-body small">Dashboard</a>
-                            </li>
+                            @if (Auth::user()->role == 'admin' || Auth::user()->role == 'editor')
+                                <li class="nav-item border-right border-secondary">
+                                    <a href="{{ route('admin.dashboard') }}" class="nav-link text-body small">Dashboard</a>
+                                </li>
+                            @else
+                                <li class="nav-item border-right border-secondary">
+                                    <form action="{{ route('logout') }}" method="POST">
+                                        @csrf 
+                                        {{-- @method('DELETE') --}}
+                                        <button class="btn crimson">Se deconnecter</button>
+                                    </form>
+                                </li>
+                            @endif
                         @endauth
                         @guest
                             <li class="nav-item border-right border-secondary">
-                                <a class="nav-link text-body small" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">Login</a>
+                                <a class="nav-link text-body small connecter" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">Se connecter</a>
+                            </li>
+                            <li class="nav-item border-right border-secondary">
+                                <a class="nav-link text-body small inscription" data-bs-toggle="modal" data-bs-target="#registerModal" href="#">S'inscrire</a>
                             </li>
                         @endguest
                     </ul>
@@ -106,16 +124,20 @@
             <a href="index.html" class="navbar-brand d-block d-lg-none">
                 <h1 class="m-0 display-4 text-uppercase text-primary">BEUL<span class="text-white font-weight-normal">News</span></h1>
             </a>
-            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse justify-content-between px-0 px-lg-3" id="navbarCollapse">
+
+            <div class="collapse navbar-collapse justify-content-between px-0 px-lg-3" id="navbarSupportedContent">
                 <div class="navbar-nav mr-auto py-0">
+
                     <a href="{{ route('blog.home') }}" @class(['nav-item nav-link', 'active' => $routeName == 'blog.home'])>Home</a>
                     <a href="#" class="nav-item nav-link">About</a>
                     <a href="{{ route('blog.category') }}" @class(['nav-item nav-link', 'active' => $routeName == 'blog.category'])>Category</a>
+                    
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Categories</a>
+                        <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
                         <div class="dropdown-menu rounded-0 m-0">
                             @foreach ($categories as $category)
                                 <a href="{{ route('blog.categorySingle', ['id' => $category->id, 'category' => Str::lower($category->name)]) }}" class="dropdown-item">{{ $category->name }}</a>
@@ -123,6 +145,7 @@
                         </div>
                     </div>
                     <a href="{{ route('blog.contact') }}" @class(['nav-item nav-link', 'active' => $routeName == 'blog.contact'])>Contact</a>
+                
                 </div>
                 <div class="input-group ml-auto d-none d-lg-flex" style="width: 100%; max-width: 300px;">
                     <input type="text" class="form-control border-0" placeholder="Keyword">
@@ -225,7 +248,7 @@
     <p class="m-0 text-center">&copy; <a href="#">Your Site Name</a>. All Rights Reserved. 
     
     <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-    Design by <a href="https://htmlcodex.com">HTML Codex</a></p>
+    {{-- Design by <a href="https://htmlcodex.com">HTML Codex</a></p> --}}
 </div>
 <!-- Footer End -->
 

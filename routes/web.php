@@ -5,7 +5,11 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ContactMailController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Category;
+use App\Models\Post;
+use App\Models\Tag;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -46,27 +50,33 @@ Route::get('/blog/category/{id}/{category}', [BlogController::class, 'categorySi
 ]);
 
 
-// Route::get('/auth/login', [AuthController::class, 'login'])->name('auth.login');
-// Route::post('/auth/login', [AuthController::class, 'doLogin']);
-// Route::delete('/auth/logout', [AuthController::class, 'logout'])->name('auth.logout');
-// Route::get('/auth/signup', [AuthController::class, 'signup'])->name('auth.signup');
-// Route::post('/auth/signup', [AuthController::class, 'store'])->name('auth.store');
-
 Route::post('/contact/email', [ContactMailController::class, 'index'])->name('contact.email');
 
-Route::get('/dashboard', [AdminController::class, 'index'])->middleware(['auth', 'verified'])->name('admin.dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('admin.dashboard');
 
 Route::prefix('/admin')->name('admin.')->middleware('auth')->group(function(){
-    Route::resource('/post', AdminController::class)->except(['show', 'index']);
+    Route::resource('/post', AdminController::class)->except(['show']); 
+    Route::post('/post/{id}/restore', [AdminController::class, 'restore'])->name('post.restore');
+    Route::post('/post/{id}/forceDelete', [AdminController::class, 'forceDelete'])->name('post.forceDelete');
+    Route::get('/post/archive', [AdminController::class, 'index'])->name('post.corbeille');
+
     Route::resource('/category', CategoryController::class)->except('show');
+    Route::post('/category/{id}/restore', [CategoryController::class, 'restore'])->name('category.restore');
+    Route::post('/category/{id}/forceDelete', [CategoryController::class, 'forceDelete'])->name('category.forceDelete');
+    Route::get('/category/archive', [CategoryController::class, 'index'])->name('category.corbeille');
+
     Route::resource('/tag', TagController::class)->except('show');
+    Route::get('/tag/archive', [TagController::class, 'index'])->name('tag.corbeille');
+    Route::post('/tag/{id}/restore', [TagController::class, 'restore'])->name('tag.restore');
+    Route::post('/tag/{id}/forceDelete', [TagController::class, 'forceDelete'])->name('tag.forceDelete');
 });
 
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('/profile/info', [ProfileController::class, 'details'])->name('profile.details');
+    Route::patch('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile/destroy', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 require __DIR__.'/auth.php';

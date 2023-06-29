@@ -11,6 +11,7 @@
         @csrf
         @method($tag->id ? 'PATCH' : 'POST')
 
+        <input type="hidden" name="role" value="{{ Auth::user()->id }}">
         @include('shared.input', ['label' => 'Tag name', 'name' => 'name', 'value' => $tag->name])
 
         <div class="mt-3">

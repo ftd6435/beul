@@ -23,6 +23,9 @@
         <div class="row">
             @include('shared.select', ['class' => 'col', 'type' => 'category', 'label' => 'Categories', 'name' => 'category_id'])
             @include('shared.select', ['class' => 'col', 'label' => 'Tags', 'name' => 'tags', 'mulptiple' => true, 'value' => $post->tags()->pluck('id')])
+            @auth
+                @include('shared.select', ['class' => 'col', 'type' => 'status', 'label' => 'Status', 'name' => 'status', 'value' => $post->status])
+            @endauth
         </div>
 
         <div class="mt-3">

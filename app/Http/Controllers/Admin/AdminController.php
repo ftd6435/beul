@@ -9,20 +9,29 @@ use App\Models\Post;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->authorizeResource(Post::class, 'post');
+    }
+
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        // $posts = Post::paginate(2);
-        // $tags = $posts->tags()->with('id', 'name');
-
-        $posts = Post::with('tags', 'category')->paginate(6);
-
+        
+        $posts = Post::with('tags', 'category')
+                                        ->when($request->is('admin/post/archive'), function ($query){
+                                            $query->onlyTrashed();
+                                        })
+                                        ->orderBy('created_at', 'desc')->paginate(6);
+        
         return view('admin.posts.index', ['posts' => $posts]);
     }
 
@@ -50,7 +59,7 @@ class AdminController extends Controller
         $post = Post::create($this->imageTreatment($request, new Post()));
         $post->tags()->sync($request->validated('tags'));
 
-        return redirect()->route('admin.post.index')->with('success', 'Un article a été ajouté avec succès');
+        return redirect()->route('admin.dashboard')->with('success', 'Un article a été ajouté avec succès');
     }
 
     /**
@@ -58,6 +67,7 @@ class AdminController extends Controller
      */
     public function edit(Post $post)
     {
+
         $tags = Tag::select('id', 'name')->get();
         $categories = Category::select('id', 'name')->get();
 
@@ -104,12 +114,26 @@ class AdminController extends Controller
         return $data;
     }
 
+    public function restore($id)
+    {
+        $post = Post::onlyTrashed()->findOrFail($id);
+        $post->restore();
+        return redirect()->route('admin.dashboard')->with('success', 'L\'article a été restoré avec succès');
+    }
+
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(Post $post)
     {
         $post->delete();
-        return redirect()->route('admin.post.index')->with('success', 'L\'article a été supprimer avec succès');
+        return redirect()->route('admin.dashboard')->with('success', 'L\'article a été supprimer avec succès');
+    }
+
+    public function forceDelete($id)
+    {
+        $post = Post::onlyTrashed()->findOrFail($id);
+        $post->forceDelete();
+        return redirect()->route('admin.dashboard')->with('success', 'L\'article a été supprimer definitivement avec succès');
     }
 }

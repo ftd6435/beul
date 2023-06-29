@@ -10,7 +10,7 @@
 @if ($type == 'textarea')
     <div @class(['form-group', $class])>
         <label for="{{ $name }}" class="form-label">{{ $label }}</label>
-        <textarea name="{{ $name }}" id="{{ $name }}" class="form-control @error($name) is-invalid @enderror">{{ old($name, $value) }}</textarea>
+        <textarea name="{{ $name }}" id="{{ $name }}" rows="15" class="form-control @error($name) is-invalid @enderror">{{ old($name, $value) }}</textarea>
 
         @error($name)
             <div class="invalid-feedback">

@@ -13,7 +13,7 @@
                             href="{{ route('blog.categorySingle', ['id' => $post->category, 'category' => Str::lower($post->category->name)]) }}">{{ $post->category->name }}</a>
                         <a class="text-body" href="{{ route('blog.show', ['slug' => $post->slug, $post]) }}"><small>{{ $post->created_at->format('d-m-Y') }}</small></a>
                     </div>
-                    <a class="h4 d-block mb-3 text-secondary text-uppercase font-weight-bold" href="{{ route('blog.show', ['slug' => $post->slug, $post]) }}">{{ Str::of($post->title)->limit('30') }}</a>
+                    <a class="h4 d-block mb-3 text-secondary text-uppercase font-weight-bold" href="{{ route('blog.show', ['slug' => $post->slug, $post]) }}">{{ $post->title }}</a>
                     <p class="m-0">{{ Str::of($post->content)->limit('54') }}</p>
                 </div>
                 <div class="d-flex justify-content-between bg-white border border-top-0 p-4">
@@ -42,7 +42,7 @@
                             href="{{ route('blog.categorySingle', ['id' => $post->category, 'category' => Str::lower($post->category->name)]) }}">{{ $post->category->name }}</a>
                         <a class="text-body" href="{{ route('blog.show', ['slug' => $post->slug, $post]) }}"><small>{{ $post->created_at->format('d-m-Y') }}</small></a>
                     </div>
-                    <a class="h4 d-block mb-3 text-secondary text-uppercase font-weight-bold" href="{{ route('blog.show', ['slug' => $post->slug, $post]) }}">{{ Str::of($post->title)->limit('30') }}</a>
+                    <a class="h4 d-block mb-3 text-secondary text-uppercase font-weight-bold" href="{{ route('blog.show', ['slug' => $post->slug, $post]) }}">{{ $post->title }}</a>
                 </div>
                 <div class="d-flex justify-content-between bg-white border border-top-0 p-4">
                     <div class="d-flex align-items-center">
@@ -87,7 +87,7 @@
                                 href="{{ route('blog.categorySingle', ['id' => $post->category, 'category' => Str::lower($post->category->name)]) }}">{{ $post->category->name }}</a>
                             <a class="text-body" href="{{ route('blog.show', ['slug' => $post->slug, $post]) }}"><small>{{ $post->created_at->format('d-m-Y') }}</small></a>
                         </div>
-                        <a class="h4 d-block mb-3 text-secondary text-uppercase font-weight-bold" href="{{ route('blog.show', ['slug' => $post->slug, $post]) }}">{{ Str::of($post->title)->limit('45') }}</a>
+                        <a class="h4 d-block mb-3 text-secondary text-uppercase font-weight-bold" href="{{ route('blog.show', ['slug' => $post->slug, $post]) }}">{{ $post->title }}</a>
                         <p class="m-0">{{ Str::of($post->content)->limit('70') }}</p>
                     </div>
                     <div class="d-flex justify-content-between bg-white border-top mt-auto p-4">
