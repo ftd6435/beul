@@ -37,7 +37,7 @@ class PolicyTag
      */
     public function update(User $user, Tag $tag): bool
     {
-        return $user->role !== 'user';
+        return $user->role !== 'User';
     }
 
     /**
@@ -45,7 +45,7 @@ class PolicyTag
      */
     public function delete(User $user, Tag $tag): bool
     {
-        return $user->role !== 'user';
+        return $user->role !== 'User';
     }
 
     /**
@@ -53,7 +53,7 @@ class PolicyTag
      */
     public function restore(User $user, Tag $tag): bool
     {
-        return $user->role == "admin";
+        return $user->role == "Admin";
     }
 
     /**
@@ -61,6 +61,6 @@ class PolicyTag
      */
     public function forceDelete(User $user, Tag $tag): bool
     {
-        return $user->role == "admin";
+        return $user->role == "Admin";
     }
 }

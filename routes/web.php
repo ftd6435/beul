@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\TagController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ContactMailController;
 use App\Http\Controllers\DashboardController;
@@ -69,6 +70,11 @@ Route::prefix('/admin')->name('admin.')->middleware('auth')->group(function(){
     Route::get('/tag/archive', [TagController::class, 'index'])->name('tag.corbeille');
     Route::post('/tag/{id}/restore', [TagController::class, 'restore'])->name('tag.restore');
     Route::post('/tag/{id}/forceDelete', [TagController::class, 'forceDelete'])->name('tag.forceDelete');
+
+    Route::resource('/user', UserController::class)->except(['show', 'create', 'store']);
+    Route::get('/user/archive', [UserController::class, 'index'])->name('user.corbeille');
+    Route::post('/user/{id}/restore', [UserController::class, 'restore'])->name('user.restore');
+    Route::post('/user/{id}/forceDelete', [UserController::class, 'forceDelete'])->name('user.forceDelete');
 });
 
 

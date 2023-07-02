@@ -98,13 +98,13 @@
 
             @auth
             <li>
-                <a href="#">
+                <a href="{{ route('admin.user.index') }}">
                     <i class='bx bxs-user-account' ></i>
                     <span class="link_name">Users</span>
                 </a>
 
                 <ul class="sub-menu blank">
-                    <li><a class="link_name" href="#">Users</a></li>
+                    <li><a class="link_name" href="{{ route('admin.user.index') }}">Users</a></li>
                 </ul>
             </li>
             @endauth
@@ -123,7 +123,7 @@
                 <li><a class="link_name" href="#">Settings</a></li>
                 <li><a href="{{ route('profile.details') }}">Profile</a></li>
                 <li><a href="{{ route('profile.edit') }}">Editer</a></li>
-                <li><a href="{{ route('profile.destroy') }}">Supprimer compte</a></li>
+                <li><a data-bs-toggle="modal" data-bs-target="#destroyUserModal" href="#">Supprimer compte</a></li>
                 </ul>
             </li>
             @endauth
@@ -143,7 +143,7 @@
                 <li><a href="{{ route('admin.post.corbeille') }}">Articles</a></li>
                 <li><a href="{{ route('admin.category.corbeille') }}">Categories</a></li>
                 <li><a href="{{ route('admin.tag.corbeille') }}">Tags</a></li>
-                <li><a href="#">Users</a></li>
+                <li><a href="{{ route('admin.user.corbeille') }}">Users</a></li>
                 </ul>
             </li>
             @endauth
@@ -170,6 +170,8 @@
     
     </div>
 
+    
+
     <section class="home-section">
         <div class="home-content">
           <i class='bx bx-menu-alt-left' ></i>
@@ -181,6 +183,8 @@
             @yield('content')
         </div>
     </section>
+
+    @include('profile.partials.destroyUser')
 
 </body>
 </html>

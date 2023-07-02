@@ -3,6 +3,7 @@
     $type ??= null;
 
     $tabStatus = ['En attente', 'Poster', 'Rejeter'];
+    $tabRole = ['Admin', 'Editor', 'User'];
     $tagsId = $post->tags()->pluck('id');
 @endphp
 

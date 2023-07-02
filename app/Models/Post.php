@@ -56,7 +56,7 @@ class Post extends Model
     protected function title(): Attribute
     {
         return Attribute::make(
-            get: fn(string $value) => Str::of($value)->limit(40),
+            get: fn(?string $value) => Str::of($value)->limit(40),
         );
     }
 }

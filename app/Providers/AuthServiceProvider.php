@@ -7,9 +7,11 @@ namespace App\Providers;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\Tag;
+use App\Models\User;
 use App\Policies\PolicyCategory;
 use App\Policies\PolicyTag;
 use App\Policies\PostPolicy;
+use App\Policies\UserPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -23,7 +25,8 @@ class AuthServiceProvider extends ServiceProvider
         //
         Post::class => PostPolicy::class,
         Category::class => PolicyCategory::class,
-        Tag::class => PolicyTag::class
+        Tag::class => PolicyTag::class,
+        User::class => UserPolicy::class
     ];
 
     /**

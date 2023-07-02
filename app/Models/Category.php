@@ -22,7 +22,7 @@ class Category extends Model
     protected function name(): Attribute
     {
         return Attribute::make(
-            get: fn (string $value) => strtoupper($value),
+            get: fn (?string $value) => strtoupper($value),
             set: fn (string $value) => strtolower($value),
         );
     }

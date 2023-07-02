@@ -10010,9 +10010,14 @@ h6,
   border-radius: 50%;
 }
 
-/* .table-dark{
-  background-color: #FFCC00 !important;
-  color: white !important;
-} */
+.user-profile{
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.primary-color{
+  color: var(--primary);
+}
 
 /* dashboard styling ends  */

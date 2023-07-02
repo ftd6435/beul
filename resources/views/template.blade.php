@@ -55,7 +55,7 @@
                             <a class="nav-link text-body small" href="{{ route('blog.contact') }}">Contact</a>
                         </li>
                         @auth
-                            @if (Auth::user()->role == 'admin' || Auth::user()->role == 'editor')
+                            @if (Auth::user()->role == 'Admin' || Auth::user()->role == 'Editor')
                                 <li class="nav-item border-right border-secondary">
                                     <a href="{{ route('admin.dashboard') }}" class="nav-link text-body small">Dashboard</a>
                                 </li>
@@ -63,7 +63,6 @@
                                 <li class="nav-item border-right border-secondary">
                                     <form action="{{ route('logout') }}" method="POST">
                                         @csrf 
-                                        {{-- @method('DELETE') --}}
                                         <button class="btn crimson">Se deconnecter</button>
                                     </form>
                                 </li>

@@ -21,10 +21,10 @@
         </div>
 
         <div class="row">
-            @include('shared.select', ['class' => 'col', 'type' => 'category', 'label' => 'Categories', 'name' => 'category_id'])
-            @include('shared.select', ['class' => 'col', 'label' => 'Tags', 'name' => 'tags', 'mulptiple' => true, 'value' => $post->tags()->pluck('id')])
+            @include('shared.select', ['class' => 'col-lg-4', 'type' => 'category', 'label' => 'Categories', 'name' => 'category_id'])
+            @include('shared.select', ['class' => 'col-lg-4', 'label' => 'Tags', 'name' => 'tags', 'mulptiple' => true, 'value' => $post->tags()->pluck('id')])
             @auth
-                @include('shared.select', ['class' => 'col', 'type' => 'status', 'label' => 'Status', 'name' => 'status', 'value' => $post->status])
+                @include('shared.select', ['class' => 'col-lg-4', 'type' => 'status', 'label' => 'Status', 'name' => 'status', 'value' => $post->status])
             @endauth
         </div>
 

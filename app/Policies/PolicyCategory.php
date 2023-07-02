@@ -29,7 +29,7 @@ class PolicyCategory
      */
     public function create(User $user): Response
     {
-        return $user->role == 'admin'
+        return $user->role == 'Admin'
                                     ? Response::allow()
                                     : Response::deny('Vous n\'avez pas le droit de créer une catégorie');
     }
@@ -39,7 +39,7 @@ class PolicyCategory
      */
     public function update(User $user, Category $category): bool
     {
-        return $user->role == 'admin';
+        return $user->role == 'Admin';
     }
 
     /**
@@ -47,7 +47,7 @@ class PolicyCategory
      */
     public function delete(User $user, Category $category): bool
     {
-        return $user->role == 'admin';
+        return $user->role == 'Admin';
     }
 
     /**
@@ -55,7 +55,7 @@ class PolicyCategory
      */
     public function restore(User $user, Category $category): bool
     {
-        return $user->role == 'admin';
+        return $user->role == 'Admin';
     }
 
     /**
@@ -63,6 +63,6 @@ class PolicyCategory
      */
     public function forceDelete(User $user, Category $category): bool
     {
-        return $user->role == 'admin';
+        return $user->role == 'Admin';
     }
 }
